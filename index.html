@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Toshkentgacha — Buxorodan Toshkentgacha yo'l hamrohi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOSHKENTGACHA — design tokens (v2, "sayohat kundaligi")
+   Palette: sunrise over the steppe between Buxoro and Toshkent —
+   terracotta road-dust, mustard-gold sun, deep teal tilework,
+   warm cream journal paper.
+   ============================================================ */
+
+:root{
+  --paper:      #FBF3E1;
+  --paper-deep: #F1E2BE;
+  --card:       #FFFCF4;
+  --ink:        #2C2013;
+  --ink-soft:   #7C6B4E;
+  --rust:       #C1522A;
+  --rust-dark:  #9C3F20;
+  --gold:       #D79A3B;
+  --gold-dark:  #B57C25;
+  --teal:       #2E7C74;
+  --teal-dark:  #205852;
+  --line:       #E3D0A0;
+  --line-strong:#CBB278;
+  --shadow:     rgba(56, 38, 14, 0.14);
+
+  --serif: 'Fraunces', Georgia, serif;
+  --sans:  'Manrope', -apple-system, 'Segoe UI', sans-serif;
+}
+
+*{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust: 100%; }
+
+body{
+  margin:0;
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.55;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(rgba(193,82,42,0.05) 1px, transparent 1.4px),
+    radial-gradient(rgba(46,124,116,0.045) 1px, transparent 1.4px);
+  background-size: 28px 28px, 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+button, input{ font-family: inherit; }
+
+:focus-visible{
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+.app{
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px 70px;
+}
+
+/* ============ HEADER ============ */
+
+.hdr{
+  display:flex;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 0 20px;
+}
+
+.hdr-brand{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+}
+
+.hdr-seal{
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--rust);
+  color: var(--paper);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  border: 2px dashed rgba(255,255,255,0.55);
+  box-shadow: 0 3px 0 var(--rust-dark);
+}
+
+.hdr-mark{
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.hdr-mark-a{ color: var(--teal-dark); }
+.hdr-mark-b{ color: var(--rust); }
+.hdr-sub{
+  display:block;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+}
+
+.hdr-nav{
+  display:flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.nav-btn{
+  display:flex;
+  align-items:center;
+  gap: 7px;
+  border: 1.5px solid var(--line-strong);
+  background: var(--card);
+  color: var(--ink-soft);
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 999px;
+  cursor:pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.nav-btn svg{ width: 15px; height: 15px; flex-shrink: 0; }
+.nav-btn:hover{ border-color: var(--rust); color: var(--ink); }
+.nav-btn.is-active{
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* ============ VIEWS ============ */
+
+.view{ display:none; }
+.view.is-active{ display:block; animation: fadein 0.4s ease; }
+
+@keyframes fadein{
+  from{ opacity:0; transform: translateY(8px); }
+  to{ opacity:1; transform: translateY(0); }
+}
+
+.section-head{
+  display:flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 26px 0 6px;
+}
+
+.section-title{
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--teal-dark);
+}
+.section-title em{ color: var(--rust); font-style: italic; }
+
+.section-sub{
+  color: var(--ink-soft);
+  margin: 0 0 28px;
+  max-width: 62ch;
+}
+
+.squiggle{
+  display:block;
+  width: 84px;
+  height: 10px;
+  margin: 6px 0 0;
+}
+
+/* ============ JOURNEY / DASHBOARD HERO ============ */
+
+.journey{
+  position: relative;
+  border-radius: 22px;
+  padding: 0;
+  margin-top: 20px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 10px 0 -4px var(--shadow);
+}
+
+.journey-scene{
+  width: 100%;
+  height: auto;
+  display:block;
+}
+
+.journey-overlay{
+  padding: 26px 30px 30px;
+  background: var(--card);
+}
+
+.journey-top{
+  display:flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.journey-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  color: var(--rust-dark);
+  background: #F7E4D2;
+  border: 1px dashed var(--rust);
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.journey-title{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  margin: 10px 0 0;
+  color: var(--ink);
+}
+
+.journey-body{
+  display:grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+  align-items:center;
+}
+
+@media (max-width: 760px){
+  .journey-body{ grid-template-columns: 1fr; }
+}
+
+.clock-num{
+  font-family: var(--serif);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.8rem, 7vw, 3.8rem);
+  font-weight: 600;
+  color: var(--rust);
+  line-height: 1;
+}
+
+.clock-label{
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  margin-top: 8px;
+  margin-bottom: 22px;
+}
+
+.clock-controls{
+  display:flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.ctrl{
+  display:flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.ctrl input{
+  background: var(--paper);
+  border: 1.5px solid var(--line-strong);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 9px 11px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.btn-ghost{
+  align-self: flex-start;
+  background: transparent;
+  border: 1.5px dashed var(--line-strong);
+  color: var(--ink-soft);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor:pointer;
+  margin-top: 2px;
+}
+.btn-ghost:hover{ border-color: var(--rust); color: var(--rust); }
+
+.road-svg{ width: 100%; height: auto; }
+
+.road-svg .stop circle{
+  fill: var(--card);
+  stroke: var(--teal-dark);
+  stroke-width: 2.5;
+}
+.road-svg .stop.is-passed circle{
+  fill: var(--rust);
+  stroke: var(--rust-dark);
+}
+.road-svg .stop text{
+  fill: var(--teal-dark);
+  font-size: 13px;
+  font-family: var(--sans);
+  font-weight: 700;
+  text-anchor: middle;
+}
+.road-svg .stop.is-passed text{ fill: var(--rust-dark); }
+
+.travel-dot{
+  fill: var(--gold);
+  stroke: var(--card);
+  stroke-width: 2.5;
+}
+
+/* ============ LOWER DASHBOARD GRID ============ */
+
+.lower-grid{
+  display:grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 22px;
+  margin-top: 24px;
+}
+
+@media (max-width: 760px){
+  .lower-grid{ grid-template-columns: 1fr; }
+}
+
+.postcard{
+  position: relative;
+  background: var(--card);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 28px 30px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 200px;
+  transform: rotate(-0.6deg);
+  box-shadow: 6px 8px 0 -2px var(--shadow);
+}
+
+.postcard-stamp{
+  position:absolute;
+  top: 14px; right: 16px;
+  width: 46px; height: 46px;
+  opacity: 0.85;
+}
+
+.postcard-kicker{
+  color: var(--rust);
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  margin: 0 0 12px;
+  padding-right: 50px;
+}
+
+.postcard-text{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.22rem;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0;
+  min-height: 4.6em;
+  padding-right: 20px;
+}
+
+.postcard-dots{
+  display:flex;
+  gap: 6px;
+  margin-top: 18px;
+}
+.postcard-dots span{
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+.postcard-dots span.is-active{ background: var(--rust); }
+
+.ticket-card{
+  background: var(--paper-deep);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.ticket-kicker{
+  font-weight: 800;
+  font-size: 0.78rem;
+  color: var(--teal-dark);
+  margin: 0 0 14px;
+}
+
+.ticket-links{
+  display:flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ticket-link{
+  text-align:left;
+  background: none;
+  border:none;
+  border-top: 1px dashed var(--line-strong);
+  padding: 13px 2px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap: 13px;
+}
+.ticket-link:first-child{ border-top:none; }
+
+.ticket-icon{
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--card);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink: 0;
+  border: 1.5px solid var(--line-strong);
+}
+.ticket-icon svg{ width: 18px; height: 18px; }
+
+.ticket-link-body{ display:flex; flex-direction: column; text-align: left; }
+.ticket-link-title{
+  font-weight: 800;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+.ticket-link-sub{
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+/* ============ ROUTE / STOPS LIST ============ */
+
+.stops-list{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.stop-card{
+  background: var(--card);
+  border: 1.5px dashed var(--line-strong);
+  border-radius: 14px;
+  padding: 20px;
+  display:flex;
+  gap: 16px;
+}
+.stop-card:nth-child(even){ transform: rotate(0.4deg); }
+.stop-card:nth-child(odd){ transform: rotate(-0.4deg); }
+
+.stop-stamp{
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  border: 2px dashed var(--teal);
+  color: var(--teal-dark);
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content:center;
+  flex-shrink: 0;
+  font-family: var(--serif);
+  font-weight: 700;
+}
+.stop-stamp b{ font-size: 1.05rem; line-height: 1; }
+.stop-stamp span{ font-size: 0.6rem; font-weight: 700; color: var(--ink-soft); }
+
+.stop-name{
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--rust-dark);
+}
+
+.stop-desc{ margin: 0 0 10px; color: var(--ink-soft); font-size: 0.92rem; }
+
+.stop-tags{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.stop-tag{
+  background: var(--paper-deep);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--teal-dark);
+}
+
+/* ============ TASKS ============ */
+
+.tasks-wrap{
+  background: var(--card);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.task-add{
+  display:flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task-add input{
+  flex:1;
+  padding: 12px 15px;
+  border-radius: 9px;
+  border: 1.5px solid var(--line-strong);
+  font-size: 0.95rem;
+  background: var(--paper);
+}
+
+.btn-primary{
+  background: var(--rust);
+  color: var(--paper);
+  border:none;
+  padding: 12px 22px;
+  border-radius: 9px;
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 0.92rem;
+  box-shadow: 0 3px 0 var(--rust-dark);
+}
+.btn-primary:hover{ filter: brightness(1.05); }
+.btn-primary:active{ transform: translateY(2px); box-shadow: 0 1px 0 var(--rust-dark); }
+.btn-wide{ width: 100%; }
+
+.task-list{
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.task-row{
+  display:flex;
+  align-items:center;
+  gap: 13px;
+  padding: 12px 4px;
+  border-top: 1px dashed var(--line-strong);
+}
+.task-row:first-child{ border-top: none; }
+
+.task-row input[type=checkbox]{
+  width: 20px; height: 20px;
+  accent-color: var(--teal);
+  flex-shrink: 0;
+}
+
+.task-row span{ flex:1; }
+.task-row.is-done span{
+  color: var(--ink-soft);
+  text-decoration: line-through;
+}
+
+.task-remove{
+  border:none;
+  background:none;
+  color: var(--rust);
+  cursor:pointer;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.task-empty{
+  color: var(--ink-soft);
+  padding: 20px 4px;
+  font-style: italic;
+  font-family: var(--serif);
+}
+
+.task-finish{ border-top: 1.5px dashed var(--line-strong); padding-top: 20px; }
+
+.task-hint{
+  text-align:center;
+  color: var(--teal-dark);
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin: 12px 0 0;
+}
+
+.task-history{ margin-top: 24px; }
+
+.history-item{
+  background: var(--paper-deep);
+  border-radius: 11px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  font-size: 0.9rem;
+}
+.history-item strong{ color: var(--rust-dark); }
+
+/* ============ CHECKLIST ============ */
+
+.check-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+  background: var(--card);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.check-item{
+  display:flex;
+  align-items:center;
+  gap: 15px;
+  padding: 16px 24px;
+  border-top: 1px dashed var(--line-strong);
+}
+.check-item:first-child{ border-top:none; }
+
+.check-item input{
+  width: 20px; height: 20px;
+  accent-color: var(--gold-dark);
+}
+
+.check-item.is-done span{
+  color: var(--ink-soft);
+  text-decoration: line-through;
+}
+
+/* ============ QUIZ ============ */
+
+.quiz-box{
+  background: var(--card);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 16px;
+  padding: 30px;
+}
+
+.quiz-progress{
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--teal-dark);
+  margin: 0 0 10px;
+}
+
+.quiz-q{
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+.quiz-opt{
+  display:block;
+  width:100%;
+  text-align:left;
+  background: var(--paper);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 14px 17px;
+  margin-bottom: 10px;
+  cursor:pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.quiz-opt:hover{ border-color: var(--teal); }
+.quiz-opt.is-correct{ border-color: var(--teal); background: #E1F1EE; }
+.quiz-opt.is-wrong{ border-color: var(--rust); background: #FBE9E1; }
+
+.quiz-result{
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  color: var(--rust-dark);
+  text-align:center;
+}
+
+.quiz-restart{
+  display:block;
+  margin: 20px auto 0;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===== HEADER ===== -->
+  <header class="hdr">
+    <div class="hdr-brand">
+      <div class="hdr-seal">T</div>
+      <div class="hdr-mark">
+        <span class="hdr-mark-a">Toshkent</span><span class="hdr-mark-b">gacha</span>
+        <span class="hdr-sub">SAYOHAT KUNDALIGI</span>
+      </div>
+    </div>
+    <nav class="hdr-nav" id="nav">
+      <button class="nav-btn is-active" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        Bugungi safar
+      </button>
+      <button class="nav-btn" data-view="route">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l5-16h2l-3 16"/><path d="M14 20l3-16h2l1 16"/><path d="M9 9h9"/></svg>
+        Yo'l bo'ylab
+      </button>
+      <button class="nav-btn" data-view="tasks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h13a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2-3-2-3 2V6a2 2 0 0 1 2-2z"/><path d="M8 9h8M8 13h5"/></svg>
+        Vazifalarim
+      </button>
+      <button class="nav-btn" data-view="checklist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 9l2 2 4-4M8 16h8"/></svg>
+        Tayyorgarlik
+      </button>
+      <button class="nav-btn" data-view="quiz">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.9.4-1.4 1-1.4 2"/><circle cx="12" cy="17" r="0.6" fill="currentColor"/></svg>
+        Viktorina
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===== DASHBOARD ===== -->
+  <main class="view is-active" id="view-dashboard">
+
+    <section class="journey">
+      <svg viewBox="0 0 760 220" class="journey-scene" preserveAspectRatio="xMidYMax slice">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FDEFCF"/>
+            <stop offset="55%" stop-color="#F6D9A8"/>
+            <stop offset="100%" stop-color="#EDC28A"/>
+          </linearGradient>
+          <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F3B24A" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#F3B24A" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <rect x="0" y="0" width="760" height="220" fill="url(#sky)"/>
+        <circle cx="95" cy="52" r="60" fill="url(#sunGlow)"/>
+        <circle cx="95" cy="52" r="26" fill="#F2A93B"/>
+
+        <path d="M0,150 C110,120 230,168 360,140 C480,116 590,158 760,128 L760,220 L0,220 Z" fill="#D98B4E" opacity="0.55"/>
+        <path d="M0,182 C140,156 280,198 420,172 C560,148 650,186 760,166 L760,220 L0,220 Z" fill="#C1522A" opacity="0.5"/>
+
+        <path id="roadPath" d="M 30 150 C 150 150, 170 60, 290 70 C 410 80, 420 150, 540 140 C 620 134, 660 60, 730 40"
+              fill="none" stroke="#fff" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 14"/>
+        <path id="roadPathDone" d="M 30 150 C 150 150, 170 60, 290 70 C 410 80, 420 150, 540 140 C 620 134, 660 60, 730 40"
+              fill="none" stroke="var(--rust)" stroke-width="4" stroke-linecap="round"
+              stroke-dasharray="900" stroke-dashoffset="900"/>
+
+        <g class="stop" data-stop="0" transform="translate(30,150)">
+          <circle r="7"/><text y="-16">Buxoro</text>
+        </g>
+        <g class="stop" data-stop="1" transform="translate(230,64)">
+          <circle r="5"/><text y="-14">Gijduvon</text>
+        </g>
+        <g class="stop" data-stop="2" transform="translate(360,76)">
+          <circle r="5"/><text y="20">Kattaqo'rg'on</text>
+        </g>
+        <g class="stop" data-stop="3" transform="translate(470,116)">
+          <circle r="5"/><text y="26">Samarqand</text>
+        </g>
+        <g class="stop" data-stop="4" transform="translate(610,86)">
+          <circle r="5"/><text y="-14">Jizzax</text>
+        </g>
+        <g class="stop" data-stop="5" transform="translate(730,40)">
+          <circle r="7"/><text y="-16">Toshkent</text>
+        </g>
+        <circle id="travelDot" r="7" class="travel-dot" />
+      </svg>
+
+      <div class="journey-overlay">
+        <div class="journey-top">
+          <p class="journey-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+            Buxoro → Toshkent, ~620 km
+          </p>
+          <h1 class="journey-title">Yo'lda qolgan vaqtingiz</h1>
+        </div>
+
+        <div class="journey-body">
+          <div class="clock-block">
+            <div class="clock-num" id="clockRemaining">10:00</div>
+            <div class="clock-label" id="clockLabel">soat qoldi, agar hozir chiqsangiz</div>
+
+            <div class="clock-controls">
+              <label class="ctrl">
+                <span>Yo'lga chiqqan vaqtingiz</span>
+                <input type="datetime-local" id="departInput" />
+              </label>
+              <label class="ctrl">
+                <span>Taxminiy davomiylik (soat)</span>
+                <input type="number" id="durationInput" min="6" max="14" step="0.5" value="10" />
+              </label>
+              <button class="btn-ghost" id="resetBtn">Boshidan boshlash</button>
+            </div>
+          </div>
+
+          <div class="road-note">
+            <p class="section-sub" style="margin:0;">Chapdagi yo'l — safaringiz. Belgilar har bir bekatni ko'rsatadi, oltin nuqta esa siz qayerda ekaningizni.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lower-grid">
+      <article class="postcard">
+        <svg class="postcard-stamp" viewBox="0 0 60 60" fill="none" stroke="var(--rust)" stroke-width="1.5">
+          <circle cx="30" cy="30" r="26" stroke-dasharray="2 3"/>
+          <circle cx="30" cy="30" r="19"/>
+          <path d="M14 30h32M30 14v32M18 18l24 24M42 18L18 42"/>
+        </svg>
+        <p class="postcard-kicker">Yo'lda bir qiziqarli fakt</p>
+        <p class="postcard-text" id="factText">Yuklanmoqda…</p>
+        <div class="postcard-dots" id="factDots"></div>
+      </article>
+
+      <article class="ticket-card">
+        <p class="ticket-kicker">Tezkor kirish</p>
+        <div class="ticket-links">
+          <button class="ticket-link" data-view="route">
+            <span class="ticket-icon" style="color:var(--teal-dark)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l5-16h2l-3 16"/><path d="M14 20l3-16h2l1 16"/><path d="M9 9h9"/></svg>
+            </span>
+            <span class="ticket-link-body">
+              <span class="ticket-link-title">Yo'l bo'ylab</span>
+              <span class="ticket-link-sub">Choyxona, benzin, ko'rinadigan joylar</span>
+            </span>
+          </button>
+          <button class="ticket-link" data-view="tasks">
+            <span class="ticket-icon" style="color:var(--rust)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h13a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2-3-2-3 2V6a2 2 0 0 1 2-2z"/><path d="M8 9h8M8 13h5"/></svg>
+            </span>
+            <span class="ticket-link-body">
+              <span class="ticket-link-title">Vazifalarim</span>
+              <span class="ticket-link-sub" id="taskProgressSub">Bugungi safar uchun vazifa qo'ying</span>
+            </span>
+          </button>
+          <button class="ticket-link" data-view="checklist">
+            <span class="ticket-icon" style="color:var(--gold-dark)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 9l2 2 4-4M8 16h8"/></svg>
+            </span>
+            <span class="ticket-link-body">
+              <span class="ticket-link-title">Tayyorgarlik</span>
+              <span class="ticket-link-sub">Yo'lga chiqishdan oldin tekshiring</span>
+            </span>
+          </button>
+          <button class="ticket-link" data-view="quiz">
+            <span class="ticket-icon" style="color:var(--teal-dark)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.9.4-1.4 1-1.4 2"/><circle cx="12" cy="17" r="0.6" fill="currentColor"/></svg>
+            </span>
+            <span class="ticket-link-body">
+              <span class="ticket-link-title">Viktorina</span>
+              <span class="ticket-link-sub">Vaqtni qiziq o'tkazing</span>
+            </span>
+          </button>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- ===== ROUTE / STOPS ===== -->
+  <main class="view" id="view-route">
+    <div class="section-head"><h2 class="section-title">Buxorodan Toshkentgacha, <em>bekat-bekat</em></h2></div>
+    <p class="section-sub">Har bir shahar — o'zining ta'mi va tarixi bilan. To'xtashga arziydigan joylar.</p>
+    <div class="stops-list" id="stopsList"></div>
+  </main>
+
+  <!-- ===== TASKS ===== -->
+  <main class="view" id="view-tasks">
+    <div class="section-head"><h2 class="section-title">Yo'l — <em>foyda</em> bilan o'tsin</h2></div>
+    <p class="section-sub">Safar boshida o'zingizga vazifa belgilang: kitob o'qish, sura yodlash, biror narsa o'rganish. Yo'l oxirida natijangizni ko'rasiz.</p>
+
+    <div class="tasks-wrap">
+      <div class="task-add">
+        <input type="text" id="newTaskInput" placeholder="Masalan: 10 bet kitob o'qish" maxlength="120" />
+        <button id="addTaskBtn" class="btn-primary">Qo'shish</button>
+      </div>
+
+      <ul class="task-list" id="taskList"></ul>
+
+      <div class="task-finish">
+        <button class="btn-primary btn-wide" id="finishTripBtn">Safarni yakunlash</button>
+        <p class="task-hint" id="taskHint"></p>
+      </div>
+    </div>
+
+    <div class="task-history" id="taskHistory"></div>
+  </main>
+
+  <!-- ===== CHECKLIST ===== -->
+  <main class="view" id="view-checklist">
+    <div class="section-head"><h2 class="section-title">Yo'lga chiqishdan <em>oldin</em></h2></div>
+    <p class="section-sub">Qulay va xotirjam safar uchun tekshiring.</p>
+    <ul class="check-list" id="checkList"></ul>
+  </main>
+
+  <!-- ===== QUIZ ===== -->
+  <main class="view" id="view-quiz">
+    <div class="section-head"><h2 class="section-title">Yo'l <em>viktorinasi</em></h2></div>
+    <p class="section-sub">Zerikish yo'q — bilimingizni sinang.</p>
+    <div class="quiz-box" id="quizBox"></div>
+  </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ============================================================
+   TOSHKENTGACHA — app.js
+   ============================================================ */
+
+/* ---------- 0. SUPABASE CONFIG ----------
+   O'z Supabase loyihangiz manzili va anon kalitini shu yerga qo'ying.
+   README.md faylida to'liq yo'riqnoma bor.
+------------------------------------------------------------- */
+const SUPABASE_URL = "https://YOUR-PROJECT.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR-ANON-KEY";
+
+let supabase = null;
+try {
+  if (window.supabase && SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR-PROJECT")) {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+} catch (e) {
+  console.warn("Supabase ulanmadi, vazifalar shu qurilmada saqlanadi.", e);
+}
+
+/* ---------- 1. NAVIGATION ----------------------------------- */
+
+const navButtons = document.querySelectorAll("[data-view]");
+navButtons.forEach(btn => {
+  btn.addEventListener("click", () => switchView(btn.dataset.view));
+});
+
+function switchView(name) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("is-active"));
+  document.getElementById("view-" + name).classList.add("is-active");
+  document.querySelectorAll(".nav-btn").forEach(b => {
+    b.classList.toggle("is-active", b.dataset.view === name);
+  });
+}
+
+/* ---------- 2. JOURNEY CLOCK + ROAD PROGRESS ----------------- */
+
+const departInput = document.getElementById("departInput");
+const durationInput = document.getElementById("durationInput");
+const resetBtn = document.getElementById("resetBtn");
+const clockRemaining = document.getElementById("clockRemaining");
+const clockLabel = document.getElementById("clockLabel");
+
+const STORAGE_KEY = "toshkentgacha_journey";
+
+function loadJourney() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) {
+    try { return JSON.parse(raw); } catch (e) { /* ignore */ }
+  }
+  return null;
+}
+
+function saveJourney(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function toLocalInputValue(date) {
+  const pad = n => String(n).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+let journey = loadJourney();
+if (!journey) {
+  journey = { departAt: new Date().toISOString(), duration: 10 };
+  saveJourney(journey);
+}
+
+departInput.value = toLocalInputValue(new Date(journey.departAt));
+durationInput.value = journey.duration;
+
+departInput.addEventListener("change", () => {
+  journey.departAt = new Date(departInput.value).toISOString();
+  saveJourney(journey);
+  tickClock();
+});
+durationInput.addEventListener("change", () => {
+  journey.duration = parseFloat(durationInput.value) || 10;
+  saveJourney(journey);
+  tickClock();
+});
+resetBtn.addEventListener("click", () => {
+  journey = { departAt: new Date().toISOString(), duration: parseFloat(durationInput.value) || 10 };
+  saveJourney(journey);
+  departInput.value = toLocalInputValue(new Date(journey.departAt));
+  tickClock();
+});
+
+const roadPathDone = document.getElementById("roadPathDone");
+const travelDot = document.getElementById("travelDot");
+const roadPath = document.getElementById("roadPath");
+const pathLength = roadPath.getTotalLength();
+roadPathDone.style.strokeDasharray = pathLength;
+
+function tickClock() {
+  const departAt = new Date(journey.departAt).getTime();
+  const totalMs = journey.duration * 3600 * 1000;
+  const now = Date.now();
+  let elapsed = now - departAt;
+  if (elapsed < 0) elapsed = 0;
+  let progress = elapsed / totalMs;
+  if (progress > 1) progress = 1;
+  if (progress < 0) progress = 0;
+
+  const remainingMs = Math.max(totalMs - elapsed, 0);
+  const remH = Math.floor(remainingMs / 3600000);
+  const remM = Math.floor((remainingMs % 3600000) / 60000);
+  clockRemaining.textContent = `${remH}:${String(remM).padStart(2, "0")}`;
+
+  if (progress >= 1) {
+    clockLabel.textContent = "Manzilga yetib keldingiz. Xayrli bo'lsin!";
+  } else if (elapsed === 0) {
+    clockLabel.textContent = "soat qoldi, agar hozir chiqsangiz";
+  } else {
+    clockLabel.textContent = "soat qoldi";
+  }
+
+  // road progress
+  const offset = pathLength * (1 - progress);
+  roadPathDone.style.strokeDashoffset = offset;
+
+  const point = roadPath.getPointAtLength(pathLength * progress);
+  travelDot.setAttribute("cx", point.x);
+  travelDot.setAttribute("cy", point.y);
+
+  // mark passed stops (rough distance-based thresholds along the route)
+  const stopThresholds = [0, 0.16, 0.35, 0.58, 0.82, 1];
+  document.querySelectorAll(".stop").forEach((el, i) => {
+    el.classList.toggle("is-passed", progress >= stopThresholds[i] - 0.02);
+  });
+}
+
+tickClock();
+setInterval(tickClock, 30000);
+
+/* ---------- 3. ROTATING FACTS --------------------------------- */
+
+const FACTS = [
+  "Buxoro shahri 2500 yildan ortiq tarixga ega va UNESCO ro'yxatidagi eng qadimiy shaharlardan biri.",
+  "Gijduvon kulolchiligi avlodlar osha davom etib kelayotgan, hech qanday andozaga ega bo'lmagan qo'l naqshlari bilan mashhur.",
+  "Samarqanddagi Registon maydoni uch xil davrda qurilgan uchta madrasadan iborat: Ulug'bek, Sherdor va Tillakori.",
+  "Ipak yo'lining bu qismi ming yillar davomida savdogarlar, olimlar va sayyohlarni bog'lab kelgan.",
+  "Kattaqo'rg'on Zarafshon vodiysining markazlaridan biri bo'lib, uzumzorlari bilan mashhur.",
+  "Jizzax tog' etaklarida joylashgan bo'lib, yozda ham nisbatan salqinroq shabada bo'ladi.",
+  "Ulug'bek observatoriyasi XV asrda qurilgan bo'lib, o'sha davrning eng aniq astronomik jadvallaridan birini bergan.",
+  "Buxoro-Toshkent yo'lining aksariyat qismi tekis dasht bo'lib, uzoq masofani kuzatish imkonini beradi.",
+  "Samarqand qog'ozi VIII asrdan boshlab Yevropaga qadar tarqalgan, sifati bilan mashhur bo'lgan.",
+  "Yo'l davomida har 2 soatda 10 daqiqa to'xtab, oyoqni yozib olish charchoqni sezilarli kamaytiradi.",
+];
+
+const factText = document.getElementById("factText");
+const factDotsWrap = document.getElementById("factDots");
+let factIndex = 0;
+
+FACTS.forEach((_, i) => {
+  const dot = document.createElement("span");
+  if (i === 0) dot.classList.add("is-active");
+  factDotsWrap.appendChild(dot);
+});
+
+function showFact(i) {
+  factText.textContent = FACTS[i];
+  [...factDotsWrap.children].forEach((d, idx) => d.classList.toggle("is-active", idx === i));
+}
+showFact(0);
+setInterval(() => {
+  factIndex = (factIndex + 1) % FACTS.length;
+  showFact(factIndex);
+}, 9000);
+
+/* ---------- 4. ROUTE STOPS ------------------------------------- */
+
+const STOPS = [
+  {
+    km: "0", sub: "boshlanish",
+    name: "Buxoro",
+    desc: "Safar shu yerdan boshlanadi. Chiqishdan oldin gaz balonini, suv zaxirasini tekshiring.",
+    tags: ["Nonushta", "Yoqilg'i to'ldirish"]
+  },
+  {
+    km: "~100", sub: "km",
+    name: "Gijduvon",
+    desc: "Mashhur kulolchilik markazi va qozon-osh bilan tanilgan to'xtash joyi.",
+    tags: ["Osh", "Kulolchilik do'konlari", "Choyxona"]
+  },
+  {
+    km: "~230", sub: "km",
+    name: "Kattaqo'rg'on",
+    desc: "Zarafshon vodiysining mevali bekati — mavsumida uzum va meva sotib olish mumkin.",
+    tags: ["Meva bozori", "Dam olish maydonchasi"]
+  },
+  {
+    km: "~280", sub: "km",
+    name: "Samarqand",
+    desc: "Yo'lning eng yirik shahri. Vaqtingiz bo'lsa, Registondan 20 daqiqalik to'xtash arziydi.",
+    tags: ["Restoranlar", "Yoqilg'i", "Diqqatga sazovor joy"]
+  },
+  {
+    km: "~450", sub: "km",
+    name: "Jizzax",
+    desc: "Tog' etagidagi salqin bekat — issiq kunlarda dam olish uchun qulay.",
+    tags: ["Choyxona", "Bolalar maydonchasi"]
+  },
+  {
+    km: "620", sub: "yakun",
+    name: "Toshkent",
+    desc: "Manzilingiz. Yetib kelganingizda vazifalar bo'limidagi natijangizni belgilang.",
+    tags: ["Manzil"]
+  },
+];
+
+const stopsList = document.getElementById("stopsList");
+STOPS.forEach(s => {
+  const item = document.createElement("div");
+  item.className = "stop-card";
+  item.innerHTML = `
+    <div class="stop-stamp"><b>${s.km}</b><span>${s.sub}</span></div>
+    <div>
+      <h3 class="stop-name">${s.name}</h3>
+      <p class="stop-desc">${s.desc}</p>
+      <div class="stop-tags">${s.tags.map(t => `<span class="stop-tag">${t}</span>`).join("")}</div>
+    </div>
+  `;
+  stopsList.appendChild(item);
+});
+
+/* ---------- 5. CHECKLIST (localStorage) ------------------------ */
+
+const CHECK_ITEMS = [
+  "Suv zaxirasi (kamida 1.5L/kishi)",
+  "Yengil gazaklar",
+  "Quvvat banki va kabellar",
+  "Zarur dorilar (bosh og'rig'i, tashnalik uchun)",
+  "Bolalar uchun o'yinchoq / kitob",
+  "Avtomobil hujjatlari va yoqilg'i darajasi",
+  "Zaxira shina holati tekshirilgan",
+  "Havo konditsioner / isitgich holati",
+];
+
+const CHECK_KEY = "toshkentgacha_checklist";
+const checkList = document.getElementById("checkList");
+let checkState = JSON.parse(localStorage.getItem(CHECK_KEY) || "{}");
+
+CHECK_ITEMS.forEach((label, i) => {
+  const li = document.createElement("li");
+  li.className = "check-item" + (checkState[i] ? " is-done" : "");
+  li.innerHTML = `<input type="checkbox" id="chk${i}" ${checkState[i] ? "checked" : ""}/><span>${label}</span>`;
+  li.querySelector("input").addEventListener("change", e => {
+    checkState[i] = e.target.checked;
+    li.classList.toggle("is-done", e.target.checked);
+    localStorage.setItem(CHECK_KEY, JSON.stringify(checkState));
+  });
+  checkList.appendChild(li);
+});
+
+/* ---------- 6. TASKS (Supabase, localStorage fallback) --------- */
+
+const LOCAL_TASKS_KEY = "toshkentgacha_tasks_local";
+const LOCAL_TRIP_KEY = "toshkentgacha_trip_id_local";
+const LOCAL_HISTORY_KEY = "toshkentgacha_history_local";
+
+const taskList = document.getElementById("taskList");
+const newTaskInput = document.getElementById("newTaskInput");
+const addTaskBtn = document.getElementById("addTaskBtn");
+const finishTripBtn = document.getElementById("finishTripBtn");
+const taskHint = document.getElementById("taskHint");
+const taskHistory = document.getElementById("taskHistory");
+const taskProgressSub = document.getElementById("taskProgressSub");
+
+let currentTripId = null;
+let tasksCache = [];
+
+function uid() {
+  return "t_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
+}
+
+async function ensureTrip() {
+  if (supabase) {
+    let tripId = localStorage.getItem("toshkentgacha_trip_id_sb");
+    if (!tripId) {
+      const { data, error } = await supabase.from("trips").insert({ started_at: new Date().toISOString() }).select().single();
+      if (!error && data) {
+        tripId = data.id;
+        localStorage.setItem("toshkentgacha_trip_id_sb", tripId);
+      }
+    }
+    currentTripId = tripId;
+  } else {
+    currentTripId = localStorage.getItem(LOCAL_TRIP_KEY);
+    if (!currentTripId) {
+      currentTripId = uid();
+      localStorage.setItem(LOCAL_TRIP_KEY, currentTripId);
+    }
+  }
+}
+
+async function loadTasks() {
+  if (supabase && currentTripId) {
+    const { data, error } = await supabase.from("tasks").select("*").eq("trip_id", currentTripId).order("created_at");
+    tasksCache = (!error && data) ? data : [];
+  } else {
+    const all = JSON.parse(localStorage.getItem(LOCAL_TASKS_KEY) || "{}");
+    tasksCache = all[currentTripId] || [];
+  }
+  renderTasks();
+}
+
+function persistLocalTasks() {
+  const all = JSON.parse(localStorage.getItem(LOCAL_TASKS_KEY) || "{}");
+  all[currentTripId] = tasksCache;
+  localStorage.setItem(LOCAL_TASKS_KEY, JSON.stringify(all));
+}
+
+function renderTasks() {
+  taskList.innerHTML = "";
+  if (tasksCache.length === 0) {
+    taskList.innerHTML = `<li class="task-empty">Hali vazifa yo'q. Yuqoridan qo'shing — masalan "1 sura yodlash".</li>`;
+  }
+  tasksCache.forEach(task => {
+    const li = document.createElement("li");
+    li.className = "task-row" + (task.is_done ? " is-done" : "");
+    li.innerHTML = `
+      <input type="checkbox" ${task.is_done ? "checked" : ""} />
+      <span>${task.title}</span>
+      <button class="task-remove">O'chirish</button>
+    `;
+    li.querySelector("input").addEventListener("change", async e => {
+      task.is_done = e.target.checked;
+      li.classList.toggle("is-done", task.is_done);
+      if (supabase) {
+        await supabase.from("tasks").update({ is_done: task.is_done }).eq("id", task.id);
+      } else {
+        persistLocalTasks();
+      }
+      updateTaskSub();
+    });
+    li.querySelector(".task-remove").addEventListener("click", async () => {
+      tasksCache = tasksCache.filter(t => t !== task);
+      if (supabase) {
+        await supabase.from("tasks").delete().eq("id", task.id);
+      } else {
+        persistLocalTasks();
+      }
+      renderTasks();
+    });
+    taskList.appendChild(li);
+  });
+  updateTaskSub();
+}
+
+function updateTaskSub() {
+  if (tasksCache.length === 0) {
+    taskProgressSub.textContent = "Bugungi safar uchun vazifa qo'ying";
+  } else {
+    const done = tasksCache.filter(t => t.is_done).length;
+    taskProgressSub.textContent = `${done} / ${tasksCache.length} bajarildi`;
+  }
+}
+
+addTaskBtn.addEventListener("click", addTask);
+newTaskInput.addEventListener("keydown", e => { if (e.key === "Enter") addTask(); });
+
+async function addTask() {
+  const title = newTaskInput.value.trim();
+  if (!title) return;
+  newTaskInput.value = "";
+
+  if (supabase) {
+    const { data, error } = await supabase.from("tasks")
+      .insert({ trip_id: currentTripId, title, is_done: false })
+      .select().single();
+    if (!error && data) tasksCache.push(data);
+  } else {
+    tasksCache.push({ id: uid(), title, is_done: false });
+    persistLocalTasks();
+  }
+  renderTasks();
+}
+
+finishTripBtn.addEventListener("click", async () => {
+  if (tasksCache.length === 0) {
+    taskHint.textContent = "Avval kamida bitta vazifa qo'shing.";
+    return;
+  }
+  const done = tasksCache.filter(t => t.is_done).length;
+  const total = tasksCache.length;
+
+  if (supabase) {
+    await supabase.from("trips").update({
+      finished_at: new Date().toISOString(),
+      total_tasks: total,
+      completed_tasks: done
+    }).eq("id", currentTripId);
+    localStorage.removeItem("toshkentgacha_trip_id_sb");
+  } else {
+    const history = JSON.parse(localStorage.getItem(LOCAL_HISTORY_KEY) || "[]");
+    history.unshift({ date: new Date().toLocaleDateString("uz-UZ"), done, total });
+    localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(history));
+    localStorage.removeItem(LOCAL_TRIP_KEY);
+  }
+
+  taskHint.textContent = `Safar yakunlandi: ${done} / ${total} vazifa bajarildi. Yaxshi yetib borishingiz bilan!`;
+  currentTripId = null;
+  await ensureTrip();
+  await loadTasks();
+  renderHistory();
+});
+
+async function renderHistory() {
+  taskHistory.innerHTML = "";
+  let items = [];
+  if (supabase) {
+    const { data, error } = await supabase.from("trips")
+      .select("*").not("finished_at", "is", null)
+      .order("finished_at", { ascending: false }).limit(5);
+    if (!error && data) {
+      items = data.map(t => ({
+        date: new Date(t.finished_at).toLocaleDateString("uz-UZ"),
+        done: t.completed_tasks, total: t.total_tasks
+      }));
+    }
+  } else {
+    items = JSON.parse(localStorage.getItem(LOCAL_HISTORY_KEY) || "[]");
+  }
+  if (items.length === 0) return;
+
+  const heading = document.createElement("p");
+  heading.className = "quick-kicker";
+  heading.textContent = "Oldingi safarlar";
+  taskHistory.appendChild(heading);
+
+  items.forEach(it => {
+    const row = document.createElement("div");
+    row.className = "history-item";
+    row.innerHTML = `<span>${it.date}</span><strong>${it.done} / ${it.total} vazifa</strong>`;
+    taskHistory.appendChild(row);
+  });
+}
+
+(async function initTasks() {
+  await ensureTrip();
+  await loadTasks();
+  await renderHistory();
+})();
+
+/* ---------- 7. QUIZ --------------------------------------------- */
+
+const QUIZ = [
+  {
+    q: "Buxorodan Toshkentgacha bo'lgan masofa taxminan necha kilometr?",
+    options: ["350 km", "620 km", "900 km"],
+    correct: 1
+  },
+  {
+    q: "Qaysi shahar kulolchiligi bilan mashhur?",
+    options: ["Jizzax", "Gijduvon", "Kattaqo'rg'on"],
+    correct: 1
+  },
+  {
+    q: "Registon maydoni qaysi shaharda joylashgan?",
+    options: ["Samarqand", "Buxoro", "Toshkent"],
+    correct: 0
+  },
+  {
+    q: "Ulug'bek observatoriyasi qaysi asrda qurilgan?",
+    options: ["XV asr", "XVIII asr", "XX asr"],
+    correct: 0
+  },
+  {
+    q: "Uzoq yo'lda charchoqni kamaytirish uchun necha soatda bir to'xtash tavsiya etiladi?",
+    options: ["Har 4-5 soatda", "Har 2 soatda", "Faqat manzilga yetganda"],
+    correct: 1
+  },
+];
+
+const quizBox = document.getElementById("quizBox");
+let quizIndex = 0;
+let quizScore = 0;
+
+function renderQuiz() {
+  if (quizIndex >= QUIZ.length) {
+    quizBox.innerHTML = `
+      <p class="quiz-result">Natija: ${quizScore} / ${QUIZ.length} to'g'ri</p>
+      <button class="btn-primary quiz-restart" id="quizRestart">Qaytadan boshlash</button>
+    `;
+    document.getElementById("quizRestart").addEventListener("click", () => {
+      quizIndex = 0; quizScore = 0; renderQuiz();
+    });
+    return;
+  }
+  const item = QUIZ[quizIndex];
+  quizBox.innerHTML = `
+    <p class="quiz-progress">Savol ${quizIndex + 1} / ${QUIZ.length}</p>
+    <h3 class="quiz-q">${item.q}</h3>
+    <div id="quizOpts"></div>
+  `;
+  const opts = document.getElementById("quizOpts");
+  item.options.forEach((opt, i) => {
+    const b = document.createElement("button");
+    b.className = "quiz-opt";
+    b.textContent = opt;
+    b.addEventListener("click", () => {
+      [...opts.children].forEach(c => c.disabled = true);
+      if (i === item.correct) {
+        b.classList.add("is-correct");
+        quizScore++;
+      } else {
+        b.classList.add("is-wrong");
+        opts.children[item.correct].classList.add("is-correct");
+      }
+      setTimeout(() => { quizIndex++; renderQuiz(); }, 900);
+    });
+    opts.appendChild(b);
+  });
+}
+renderQuiz();
+
+</script>
+</body>
+</html>
