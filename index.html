@@ -9,27 +9,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   TOSHKENTGACHA — design tokens (v2, "sayohat kundaligi")
-   Palette: sunrise over the steppe between Buxoro and Toshkent —
-   terracotta road-dust, mustard-gold sun, deep teal tilework,
+   TOSHKENTGACHA — design tokens (v3, "kunbotar sayohati")
+   Palette: sunset over the steppe between Buxoro and Toshkent —
+   coral sky, mustard-gold sun, deep dusk-purple shadows,
    warm cream journal paper.
    ============================================================ */
 
 :root{
-  --paper:      #FBF3E1;
-  --paper-deep: #F1E2BE;
-  --card:       #FFFCF4;
-  --ink:        #2C2013;
-  --ink-soft:   #7C6B4E;
-  --rust:       #C1522A;
-  --rust-dark:  #9C3F20;
-  --gold:       #D79A3B;
-  --gold-dark:  #B57C25;
-  --teal:       #2E7C74;
-  --teal-dark:  #205852;
-  --line:       #E3D0A0;
-  --line-strong:#CBB278;
-  --shadow:     rgba(56, 38, 14, 0.14);
+  --paper:      #FFEFE3;
+  --paper-deep: #FBD5B4;
+  --card:       #FFFCF5;
+  --ink:        #2E1F3A;
+  --ink-soft:   #7C6885;
+  --rust:       #F0654B;
+  --rust-dark:  #CE4A34;
+  --gold:       #F4B93F;
+  --gold-dark:  #D89A22;
+  --teal:       #5B3E82;
+  --teal-dark:  #402A5E;
+  --line:       #F0D2A8;
+  --line-strong:#E0B27C;
+  --shadow:     rgba(58, 34, 20, 0.16);
 
   --serif: 'Fraunces', Georgia, serif;
   --sans:  'Manrope', -apple-system, 'Segoe UI', sans-serif;
@@ -45,10 +45,30 @@ body{
   line-height: 1.55;
   background-color: var(--paper);
   background-image:
-    radial-gradient(rgba(193,82,42,0.05) 1px, transparent 1.4px),
-    radial-gradient(rgba(46,124,116,0.045) 1px, transparent 1.4px);
+    radial-gradient(rgba(240,101,75,0.06) 1px, transparent 1.4px),
+    radial-gradient(rgba(91,62,130,0.05) 1px, transparent 1.4px);
   background-size: 28px 28px, 28px 28px;
   background-position: 0 0, 14px 14px;
+  position: relative;
+}
+
+body::before{
+  content: "";
+  position: fixed;
+  inset: -12%;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(240,101,75,0.16), transparent 42%),
+    radial-gradient(circle at 82% 18%, rgba(244,185,63,0.16), transparent 40%),
+    radial-gradient(circle at 70% 82%, rgba(91,62,130,0.13), transparent 45%),
+    radial-gradient(circle at 12% 78%, rgba(240,101,75,0.1), transparent 40%);
+  animation: bgDrift 22s ease-in-out infinite alternate;
+}
+
+@keyframes bgDrift{
+  0%{ transform: translate(0, 0) scale(1); }
+  100%{ transform: translate(2.5%, -3%) scale(1.04); }
 }
 
 button, input{ font-family: inherit; }
@@ -142,8 +162,8 @@ button, input{ font-family: inherit; }
 .nav-btn svg{ width: 15px; height: 15px; flex-shrink: 0; }
 .nav-btn:hover{ border-color: var(--rust); color: var(--ink); }
 .nav-btn.is-active{
-  background: var(--ink);
-  border-color: var(--ink);
+  background: var(--teal);
+  border-color: var(--teal);
   color: var(--paper);
 }
 
@@ -306,6 +326,14 @@ button, input{ font-family: inherit; }
 }
 .btn-ghost:hover{ border-color: var(--rust); color: var(--rust); }
 
+.btn-row{ display:flex; gap: 8px; flex-wrap: wrap; }
+.btn-preview{
+  border-color: var(--teal);
+  color: var(--teal-dark);
+}
+.btn-preview:hover{ border-color: var(--teal-dark); color: var(--teal-dark); background: #E1F1EE; }
+.btn-preview:disabled{ opacity: 0.55; cursor: default; }
+
 .road-svg{ width: 100%; height: auto; }
 
 .road-svg .stop circle{
@@ -326,11 +354,78 @@ button, input{ font-family: inherit; }
 }
 .road-svg .stop.is-passed text{ fill: var(--rust-dark); }
 
-.travel-dot{
-  fill: var(--gold);
-  stroke: var(--card);
-  stroke-width: 2.5;
+.star{
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: starTwinkle 2.6s ease-in-out infinite;
 }
+@keyframes starTwinkle{
+  0%, 100%{ opacity: 0.15; }
+  50%{ opacity: 0.9; }
+}
+
+.cloud{
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.cloud-a{ animation: cloudDrift 26s linear infinite; }
+.cloud-b{ animation: cloudDrift 34s linear infinite reverse; }
+@keyframes cloudDrift{
+  0%{ transform: translateX(-14px); }
+  50%{ transform: translateX(14px); }
+  100%{ transform: translateX(-14px); }
+}
+
+.bus{ overflow: visible; }
+
+.bus-shadow{
+  fill: rgba(44,32,19,0.2);
+}
+
+.bus-bob{
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: busBob 0.6s ease-in-out infinite;
+}
+
+@keyframes busBob{
+  0%, 100%{ transform: translateY(0) rotate(0deg); }
+  50%{ transform: translateY(-1.4px) rotate(-0.6deg); }
+}
+
+.bus-body{
+  fill: var(--card);
+  stroke: var(--ink);
+  stroke-width: 1.1;
+}
+.bus-roofline{ fill: rgba(255,255,255,0.55); }
+.bus-stripe{ fill: var(--rust); }
+.bus-window, .bus-windshield{
+  fill: #DCEAF7;
+  stroke: var(--ink);
+  stroke-opacity: 0.45;
+  stroke-width: 0.6;
+}
+.bus-bumper{ fill: var(--ink); }
+.bus-headlight{ fill: var(--gold); }
+.bus-taillight{ fill: var(--rust-dark); }
+.bus-mirror-arm{ fill: var(--ink); }
+.bus-mirror{
+  fill: var(--card);
+  stroke: var(--ink);
+  stroke-width: 0.6;
+}
+
+.wheel-spin{
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wheelSpin 0.9s linear infinite;
+}
+@keyframes wheelSpin{
+  to{ transform: rotate(360deg); }
+}
+.bus-wheel{ fill: var(--ink); }
+.bus-hub{ fill: var(--paper); }
 
 /* ============ LOWER DASHBOARD GRID ============ */
 
@@ -708,6 +803,24 @@ button, input{ font-family: inherit; }
 </head>
 <body>
 
+<div class="sky-layer" aria-hidden="true">
+  <span class="sky-star" style="top:6%; left:12%; animation-delay:0s;"></span>
+  <span class="sky-star" style="top:14%; left:78%; animation-delay:0.6s;"></span>
+  <span class="sky-star" style="top:32%; left:45%; animation-delay:1.2s;"></span>
+  <span class="sky-star" style="top:22%; left:92%; animation-delay:1.8s;"></span>
+  <span class="sky-star" style="top:48%; left:8%; animation-delay:2.4s;"></span>
+  <span class="sky-star" style="top:64%; left:60%; animation-delay:0.3s;"></span>
+  <span class="sky-star" style="top:78%; left:88%; animation-delay:1.5s;"></span>
+  <span class="sky-star" style="top:88%; left:20%; animation-delay:2.1s;"></span>
+  <span class="sky-star" style="top:58%; left:35%; animation-delay:0.9s;"></span>
+  <span class="sky-star" style="top:38%; left:70%; animation-delay:2.7s;"></span>
+
+  <span class="sky-cloud sky-cloud-1" style="top:10%;"></span>
+  <span class="sky-cloud sky-cloud-2" style="top:36%;"></span>
+  <span class="sky-cloud sky-cloud-3" style="top:66%;"></span>
+  <span class="sky-cloud sky-cloud-4" style="top:84%;"></span>
+</div>
+
 <div class="app">
 
   <!-- ===== HEADER ===== -->
@@ -750,22 +863,36 @@ button, input{ font-family: inherit; }
       <svg viewBox="0 0 760 220" class="journey-scene" preserveAspectRatio="xMidYMax slice">
         <defs>
           <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#FDEFCF"/>
-            <stop offset="55%" stop-color="#F6D9A8"/>
-            <stop offset="100%" stop-color="#EDC28A"/>
+            <stop offset="0%" stop-color="#FFDFAE"/>
+            <stop offset="45%" stop-color="#F4926B"/>
+            <stop offset="100%" stop-color="#7C5A96"/>
           </linearGradient>
           <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F3B24A" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#F3B24A" stop-opacity="0"/>
+            <stop offset="0%" stop-color="#FFA24F" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#FFA24F" stop-opacity="0"/>
           </radialGradient>
         </defs>
 
         <rect x="0" y="0" width="760" height="220" fill="url(#sky)"/>
-        <circle cx="95" cy="52" r="60" fill="url(#sunGlow)"/>
-        <circle cx="95" cy="52" r="26" fill="#F2A93B"/>
 
-        <path d="M0,150 C110,120 230,168 360,140 C480,116 590,158 760,128 L760,220 L0,220 Z" fill="#D98B4E" opacity="0.55"/>
-        <path d="M0,182 C140,156 280,198 420,172 C560,148 650,186 760,166 L760,220 L0,220 Z" fill="#C1522A" opacity="0.5"/>
+        <g class="star" style="animation-delay:0s"><circle cx="620" cy="28" r="1.6" fill="#fff"/></g>
+        <g class="star" style="animation-delay:0.7s"><circle cx="670" cy="55" r="1.2" fill="#fff"/></g>
+        <g class="star" style="animation-delay:1.4s"><circle cx="560" cy="20" r="1.3" fill="#fff"/></g>
+        <g class="star" style="animation-delay:2.1s"><circle cx="700" cy="18" r="1.1" fill="#fff"/></g>
+
+        <g class="cloud cloud-a">
+          <ellipse cx="470" cy="42" rx="26" ry="9" fill="#fff" opacity="0.35"/>
+          <ellipse cx="492" cy="38" rx="18" ry="7" fill="#fff" opacity="0.3"/>
+        </g>
+        <g class="cloud cloud-b">
+          <ellipse cx="330" cy="30" rx="20" ry="7" fill="#fff" opacity="0.28"/>
+        </g>
+
+        <circle cx="95" cy="52" r="60" fill="url(#sunGlow)"/>
+        <circle cx="95" cy="52" r="26" fill="#FFB648"/>
+
+        <path d="M0,150 C110,120 230,168 360,140 C480,116 590,158 760,128 L760,220 L0,220 Z" fill="#E08A5B" opacity="0.6"/>
+        <path d="M0,182 C140,156 280,198 420,172 C560,148 650,186 760,166 L760,220 L0,220 Z" fill="#7C4F72" opacity="0.55"/>
 
         <path id="roadPath" d="M 30 150 C 150 150, 170 60, 290 70 C 410 80, 420 150, 540 140 C 620 134, 660 60, 730 40"
               fill="none" stroke="#fff" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 14"/>
@@ -791,7 +918,37 @@ button, input{ font-family: inherit; }
         <g class="stop" data-stop="5" transform="translate(730,40)">
           <circle r="7"/><text y="-16">Toshkent</text>
         </g>
-        <circle id="travelDot" r="7" class="travel-dot" />
+        <g id="travelDot" class="bus">
+          <ellipse class="bus-shadow" cx="-1" cy="11" rx="17" ry="3"/>
+          <g class="bus-bob">
+            <rect class="bus-mirror-arm" x="13.4" y="-9.8" width="1.1" height="2.8"/>
+            <circle class="bus-mirror" cx="14" cy="-10.2" r="1.1"/>
+
+            <rect class="bus-body" x="-18" y="-8" width="34" height="13" rx="3"/>
+            <rect class="bus-roofline" x="-15" y="-8" width="28" height="1.3" rx="0.6"/>
+
+            <rect class="bus-window" x="-15" y="-6" width="6" height="5" rx="1"/>
+            <rect class="bus-window" x="-7" y="-6" width="6" height="5" rx="1"/>
+            <rect class="bus-window" x="1" y="-6" width="6" height="5" rx="1"/>
+            <rect class="bus-windshield" x="9" y="-6" width="6" height="5" rx="1"/>
+
+            <rect class="bus-stripe" x="-18" y="0.6" width="34" height="2.2"/>
+
+            <rect class="bus-bumper" x="15.6" y="3" width="1.8" height="2.4" rx="0.4"/>
+            <rect class="bus-bumper" x="-19.4" y="3" width="1.8" height="2.4" rx="0.4"/>
+            <circle class="bus-headlight" cx="16.4" cy="-1" r="1"/>
+            <circle class="bus-taillight" cx="-18.4" cy="-1" r="0.9"/>
+
+            <g class="wheel-spin" style="transform-origin: -10px 6.2px;">
+              <circle class="bus-wheel" cx="-10" cy="6.2" r="3.6"/>
+              <circle class="bus-hub" cx="-10" cy="6.2" r="1.2"/>
+            </g>
+            <g class="wheel-spin" style="transform-origin: 9px 6.2px;">
+              <circle class="bus-wheel" cx="9" cy="6.2" r="3.6"/>
+              <circle class="bus-hub" cx="9" cy="6.2" r="1.2"/>
+            </g>
+          </g>
+        </g>
       </svg>
 
       <div class="journey-overlay">
@@ -817,7 +974,10 @@ button, input{ font-family: inherit; }
                 <span>Taxminiy davomiylik (soat)</span>
                 <input type="number" id="durationInput" min="6" max="14" step="0.5" value="10" />
               </label>
-              <button class="btn-ghost" id="resetBtn">Boshidan boshlash</button>
+              <div class="btn-row">
+                <button class="btn-ghost" id="resetBtn">Boshidan boshlash</button>
+                <button class="btn-ghost btn-preview" id="previewBtn">▶ Harakatni ko'rish</button>
+              </div>
             </div>
           </div>
 
@@ -943,10 +1103,10 @@ button, input{ font-family: inherit; }
 const SUPABASE_URL = "https://qtwxmakikckzqsbtvhbc.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0d3htYWtpa2NrenFzYnR2aGJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMDQ0NjgsImV4cCI6MjEwNDY4MDQ2OH0.mzuJj44AfsMazHLNn0sLLt1-4DentWs63zNcp4GkBBY";
 
-let supabase = null;
+let sb = null;
 try {
   if (window.supabase && SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR-PROJECT")) {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }
 } catch (e) {
   console.warn("Supabase ulanmadi, vazifalar shu qurilmada saqlanadi.", e);
@@ -1026,6 +1186,23 @@ const roadPath = document.getElementById("roadPath");
 const pathLength = roadPath.getTotalLength();
 roadPathDone.style.strokeDasharray = pathLength;
 
+function setBusPosition(progress) {
+  const offset = pathLength * (1 - progress);
+  roadPathDone.style.strokeDashoffset = offset;
+
+  const point = roadPath.getPointAtLength(pathLength * progress);
+  const aheadLen = Math.min(pathLength, pathLength * progress + 2);
+  const pointAhead = roadPath.getPointAtLength(aheadLen);
+  let angle = Math.atan2(pointAhead.y - point.y, pointAhead.x - point.x) * (180 / Math.PI);
+  angle = Math.max(-14, Math.min(14, angle));
+  travelDot.setAttribute("transform", `translate(${point.x} ${point.y}) rotate(${angle})`);
+
+  const stopThresholds = [0, 0.16, 0.35, 0.58, 0.82, 1];
+  document.querySelectorAll(".stop").forEach((el, i) => {
+    el.classList.toggle("is-passed", progress >= stopThresholds[i] - 0.02);
+  });
+}
+
 function tickClock() {
   const departAt = new Date(journey.departAt).getTime();
   const totalMs = journey.duration * 3600 * 1000;
@@ -1049,23 +1226,48 @@ function tickClock() {
     clockLabel.textContent = "soat qoldi";
   }
 
-  // road progress
-  const offset = pathLength * (1 - progress);
-  roadPathDone.style.strokeDashoffset = offset;
-
-  const point = roadPath.getPointAtLength(pathLength * progress);
-  travelDot.setAttribute("cx", point.x);
-  travelDot.setAttribute("cy", point.y);
-
-  // mark passed stops (rough distance-based thresholds along the route)
-  const stopThresholds = [0, 0.16, 0.35, 0.58, 0.82, 1];
-  document.querySelectorAll(".stop").forEach((el, i) => {
-    el.classList.toggle("is-passed", progress >= stopThresholds[i] - 0.02);
-  });
+  setBusPosition(progress);
 }
 
 tickClock();
 setInterval(tickClock, 30000);
+
+/* ---------- 2b. ROUTE PREVIEW (drives the bus across the whole path so you can see it move) --- */
+
+const previewBtn = document.getElementById("previewBtn");
+let previewRunning = false;
+
+function easeInOutQuad(t) {
+  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+}
+
+function runPreview() {
+  if (previewRunning) return;
+  previewRunning = true;
+  previewBtn.disabled = true;
+  previewBtn.textContent = "Yo'lda…";
+  clockLabel.textContent = "Namoyish: avtobus yo'lni bosib o'tmoqda";
+
+  const durationMs = 3800;
+  const start = performance.now();
+
+  function frame(now) {
+    const t = Math.min(1, (now - start) / durationMs);
+    const progress = easeInOutQuad(t);
+    setBusPosition(progress);
+    if (t < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      previewRunning = false;
+      previewBtn.disabled = false;
+      previewBtn.textContent = "▶ Harakatni ko'rish";
+      tickClock();
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+previewBtn.addEventListener("click", runPreview);
 
 /* ---------- 3. ROTATING FACTS --------------------------------- */
 
@@ -1209,10 +1411,10 @@ function uid() {
 }
 
 async function ensureTrip() {
-  if (supabase) {
+  if (sb) {
     let tripId = localStorage.getItem("toshkentgacha_trip_id_sb");
     if (!tripId) {
-      const { data, error } = await supabase.from("trips").insert({ started_at: new Date().toISOString() }).select().single();
+      const { data, error } = await sb.from("trips").insert({ started_at: new Date().toISOString() }).select().single();
       if (!error && data) {
         tripId = data.id;
         localStorage.setItem("toshkentgacha_trip_id_sb", tripId);
@@ -1229,8 +1431,8 @@ async function ensureTrip() {
 }
 
 async function loadTasks() {
-  if (supabase && currentTripId) {
-    const { data, error } = await supabase.from("tasks").select("*").eq("trip_id", currentTripId).order("created_at");
+  if (sb && currentTripId) {
+    const { data, error } = await sb.from("tasks").select("*").eq("trip_id", currentTripId).order("created_at");
     tasksCache = (!error && data) ? data : [];
   } else {
     const all = JSON.parse(localStorage.getItem(LOCAL_TASKS_KEY) || "{}");
@@ -1261,8 +1463,8 @@ function renderTasks() {
     li.querySelector("input").addEventListener("change", async e => {
       task.is_done = e.target.checked;
       li.classList.toggle("is-done", task.is_done);
-      if (supabase) {
-        await supabase.from("tasks").update({ is_done: task.is_done }).eq("id", task.id);
+      if (sb) {
+        await sb.from("tasks").update({ is_done: task.is_done }).eq("id", task.id);
       } else {
         persistLocalTasks();
       }
@@ -1270,8 +1472,8 @@ function renderTasks() {
     });
     li.querySelector(".task-remove").addEventListener("click", async () => {
       tasksCache = tasksCache.filter(t => t !== task);
-      if (supabase) {
-        await supabase.from("tasks").delete().eq("id", task.id);
+      if (sb) {
+        await sb.from("tasks").delete().eq("id", task.id);
       } else {
         persistLocalTasks();
       }
@@ -1299,8 +1501,8 @@ async function addTask() {
   if (!title) return;
   newTaskInput.value = "";
 
-  if (supabase) {
-    const { data, error } = await supabase.from("tasks")
+  if (sb) {
+    const { data, error } = await sb.from("tasks")
       .insert({ trip_id: currentTripId, title, is_done: false })
       .select().single();
     if (!error && data) tasksCache.push(data);
@@ -1319,8 +1521,8 @@ finishTripBtn.addEventListener("click", async () => {
   const done = tasksCache.filter(t => t.is_done).length;
   const total = tasksCache.length;
 
-  if (supabase) {
-    await supabase.from("trips").update({
+  if (sb) {
+    await sb.from("trips").update({
       finished_at: new Date().toISOString(),
       total_tasks: total,
       completed_tasks: done
@@ -1343,8 +1545,8 @@ finishTripBtn.addEventListener("click", async () => {
 async function renderHistory() {
   taskHistory.innerHTML = "";
   let items = [];
-  if (supabase) {
-    const { data, error } = await supabase.from("trips")
+  if (sb) {
+    const { data, error } = await sb.from("trips")
       .select("*").not("finished_at", "is", null)
       .order("finished_at", { ascending: false }).limit(5);
     if (!error && data) {
